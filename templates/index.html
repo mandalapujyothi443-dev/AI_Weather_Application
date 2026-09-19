@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Weather Assistant</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- Header -->
+        <header class="header">
+
+            <h1>AI Weather Assistant</h1>
+
+            <p>
+                Get current weather information with an
+                AI-powered explanation.
+            </p>
+
+        </header>
+
+
+        <!-- Search -->
+        <section class="search-section">
+
+            <form method="POST">
+
+                <input
+                    type="text"
+                    name="city"
+                    placeholder="Enter city name"
+                    value="{{ city }}"
+                    autocomplete="off"
+                >
+
+                <button type="submit">
+                    Search Weather
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- Error -->
+        {% if error %}
+
+        <div class="error">
+            {{ error }}
+        </div>
+
+        {% endif %}
+
+
+        <!-- Weather Result -->
+        {% if weather %}
+
+        <section class="weather-section">
+
+            <!-- Location -->
+            <div class="location">
+
+                <h2>
+                    {{ weather.city }}, {{ weather.country }}
+                </h2>
+
+                <p>
+                    Last updated:
+                    {{ weather.last_updated }}
+                </p>
+
+            </div>
+
+
+            <!-- Main Weather -->
+            <div class="main-weather">
+
+                <div class="temperature">
+
+                    <span>
+                        {{ weather.temperature }}°C
+                    </span>
+
+                    <p>
+                        Feels like
+                        {{ weather.feels_like }}°C
+                    </p>
+
+                </div>
+
+                <div class="condition">
+
+                    <img
+                        src="{{ weather.icon }}"
+                        alt="{{ weather.condition }}"
+                    >
+
+                    <h3>
+                        {{ weather.condition }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <!-- Weather Details -->
+            <div class="weather-grid">
+
+                <div class="weather-card">
+                    <h3>Humidity</h3>
+                    <p>{{ weather.humidity }}%</p>
+                </div>
+
+                <div class="weather-card">
+                    <h3>Wind</h3>
+                    <p>
+                        {{ weather.wind_speed }} km/h
+                    </p>
+                </div>
+
+                <div class="weather-card">
+                    <h3>Wind Direction</h3>
+                    <p>
+                        {{ weather.wind_direction }}
+                    </p>
+                </div>
+
+                <div class="weather-card">
+                    <h3>Pressure</h3>
+                    <p>
+                        {{ weather.pressure }} hPa
+                    </p>
+                </div>
+
+                <div class="weather-card">
+                    <h3>Visibility</h3>
+                    <p>
+                        {{ weather.visibility }} km
+                    </p>
+                </div>
+
+                <div class="weather-card">
+                    <h3>Cloud Coverage</h3>
+                    <p>
+                        {{ weather.cloud }}%
+                    </p>
+                </div>
+
+                <div class="weather-card">
+                    <h3>UV Index</h3>
+                    <p>
+                        {{ weather.uv }}
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- AI Explanation -->
+            {% if explanation %}
+
+            <div class="ai-section">
+
+                <div class="ai-title">
+                    <span>🤖</span>
+
+                    <h2>
+                        AI Weather Explanation
+                    </h2>
+                </div>
+
+                <p>
+                    {{ explanation }}
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </section>
+
+        {% endif %}
+
+
+        <!-- Footer -->
+        <footer>
+
+            <p>
+                AI Weather Assistant
+            </p>
+
+            <p>
+                Weather data + Groq AI
+            </p>
+
+        </footer>
+
+    </div>
+
+</body>
+
+</html>
